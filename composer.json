@@ -1,0 +1,27 @@
+{
+    "name": "coercive/email",
+    "type": "library",
+    "description": "Coercive Email",
+    "homepage": "https://coercive.fr",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthony Moral",
+            "email": "contact@coercive.fr",
+            "homepage": "http://coercive.fr"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "ext-json": "*",
+        "mailjet/mailjet-apiv3-php": "^1.5",
+        "phpmailer/phpmailer": "^5.2",
+        "symfony/yaml": "^2.7",
+        "swiftmailer/swiftmailer": "^5.4"
+    },
+    "autoload": {
+        "psr-4": { "Coercive\\Utility\\Email\\": "" }
+    },
+    "minimum-stability" : "dev",
+    "prefer-stable" : true
+}
