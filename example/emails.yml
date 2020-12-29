@@ -1,0 +1,32 @@
+from:
+    name: Example From Name
+    email: example@from-email.com
+
+to:
+    -
+        name: Example Recipient Name
+        email: example@recipient-email.com
+
+webmaster:
+    -
+        name: Example Webmaster Name
+        email: example@webmaster-email.com
+
+mailjet:
+    public: your-public-key-here
+    private: your-private-key-here
+    version: v3.1
+    sandbox: true
+
+phpmailer:
+    debug: true
+    port: 587
+    host: your-smtp.example.com
+    username: your-user-name-here
+    password: your-password-here
+
+swiftmailer:
+    port: 587
+    host: your-smtp.example.com
+    username: your-user-name-here
+    password: your-password-here
