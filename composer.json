@@ -20,7 +20,7 @@
         "swiftmailer/swiftmailer": "^5.4"
     },
     "autoload": {
-        "psr-4": { "Coercive\\Utility\\Email\\": "" }
+        "psr-4": { "Coercive\\Utility\\Email\\": "dist/" }
     },
     "minimum-stability" : "dev",
     "prefer-stable" : true
