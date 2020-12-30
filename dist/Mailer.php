@@ -82,7 +82,7 @@ class Mailer
 	protected $lastHandlerStatus = null;
 
 	/** @var bool Email system enabled / disabled */
-	private $status = false;
+	private $enabled = false;
 
 	/** @var int Attachment max size (default : 10 Mb) */
 	private $maxSize = 10485760;
@@ -220,9 +220,9 @@ class Mailer
 	 * @param bool $status
 	 * @return $this
 	 */
-	public function setStatus(bool $status): Mailer
+	public function setEnableStatus(bool $status): Mailer
 	{
-		$this->status = $status;
+		$this->enabled = $status;
 		return $this;
 	}
 
@@ -233,7 +233,7 @@ class Mailer
 	 */
 	public function enable(): Mailer
 	{
-		$this->status = true;
+		$this->enabled = true;
 		return $this;
 	}
 
@@ -244,7 +244,7 @@ class Mailer
 	 */
 	public function disable(): Mailer
 	{
-		$this->status = false;
+		$this->enabled = false;
 		return $this;
 	}
 
@@ -390,7 +390,7 @@ class Mailer
 		}
 
 		# [ONLY IF ENABLE] > Prepare mail
-		if($this->status) {
+		if($this->enabled) {
 
 			switch ($this->handlerMode) {
 				case self::HANDLER_MODE_PHPMAILER:
@@ -427,7 +427,7 @@ class Mailer
 		$this->lastHandlerStatus = null;
 
 		# [ONLY IF ENABLE] > Send mail
-		if($this->status && $this->handler) {
+		if($this->enabled && $this->handler) {
 
 			$this->handler->send();
 			$this->lastHandlerStatus = $this->handler->getStatus();
@@ -450,7 +450,7 @@ class Mailer
 		}
 
 		# [UNPREPARED]
-		elseif($this->status && !$this->handler) {
+		elseif($this->enabled && !$this->handler) {
 			$this->lastHandlerStatus = (new Status)
 				->setStatus(false)
 				->setMessage('Mail handler is not prepared correctly.');
