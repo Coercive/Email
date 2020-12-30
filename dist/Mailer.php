@@ -523,6 +523,8 @@ class Mailer
 	/**
 	 * Set the language parameter.
 	 *
+	 * Used in PHPMailer config.
+	 *
 	 * @param string $lang
 	 * @return $this
 	 * @throws Exception
@@ -536,6 +538,8 @@ class Mailer
 	/**
 	 * Set the Language path parameter.
 	 *
+	 * Used in PHPMailer config.
+	 *
 	 * @param string $path
 	 * @return $this
 	 * @throws Exception
@@ -548,6 +552,8 @@ class Mailer
 
 	/**
 	 * Set the charset parameter.
+	 *
+	 * Used in PHPMailer config.
 	 *
 	 * @param string $charset
 	 * @return $this
@@ -580,6 +586,34 @@ class Mailer
 			}
 		}
 		$this->param->setFrom($email, $name);
+		return $this;
+	}
+
+	/**
+	 * Add recipient addresses (To).
+	 *
+	 * @param array $addresses [ [name,email] ] or [ [email] ]
+	 * @return $this
+	 * @throws Exception
+	 */
+	public function addRecipients(array $addresses): Mailer
+	{
+		foreach ($addresses as $address) {
+			if(is_string($address)) {
+				$this->addRecipient($address);
+			}
+			elseif(is_array($address)) {
+				$email = strval($address['email'] ?? '');
+				$name = strval($address['name'] ?? '');
+				if(!$email) {
+					throw new Exception('Email key not found in array.');
+				}
+				$this->addRecipient($email, $name);
+			}
+			else {
+				throw new Exception('The address type is not supported.');
+			}
+		}
 		return $this;
 	}
 
@@ -623,6 +657,34 @@ class Mailer
 	/**
 	 * Add copy addresses (Cc).
 	 *
+	 * @param array $addresses [ [name,email] ] or [ [email] ]
+	 * @return $this
+	 * @throws Exception
+	 */
+	public function addCopies(array $addresses): Mailer
+	{
+		foreach ($addresses as $address) {
+			if(is_string($address)) {
+				$this->addCopy($address);
+			}
+			elseif(is_array($address)) {
+				$email = strval($address['email'] ?? '');
+				$name = strval($address['name'] ?? '');
+				if(!$email) {
+					throw new Exception('Email key not found in array.');
+				}
+				$this->addCopy($email, $name);
+			}
+			else {
+				throw new Exception('The address type is not supported.');
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * Add copy address (Cc).
+	 *
 	 * @param string $email [optional]
 	 * @param string $name [optional]
 	 * @return $this
@@ -658,7 +720,35 @@ class Mailer
 	}
 
 	/**
-	 * Add blind addresses (Bcc).
+	 * Add blinds addresses (Cc).
+	 *
+	 * @param array $addresses [ [name,email] ] or [ [email] ]
+	 * @return $this
+	 * @throws Exception
+	 */
+	public function addBlinds(array $addresses): Mailer
+	{
+		foreach ($addresses as $address) {
+			if(is_string($address)) {
+				$this->addBlind($address);
+			}
+			elseif(is_array($address)) {
+				$email = strval($address['email'] ?? '');
+				$name = strval($address['name'] ?? '');
+				if(!$email) {
+					throw new Exception('Email key not found in array.');
+				}
+				$this->addBlind($email, $name);
+			}
+			else {
+				throw new Exception('The address type is not supported.');
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * Add blind address (Bcc).
 	 *
 	 * @param string $email [optional]
 	 * @param string $name [optional]
@@ -691,6 +781,34 @@ class Mailer
 	public function clearBlinds(): Mailer
 	{
 		$this->param->clearBlinds();
+		return $this;
+	}
+
+	/**
+	 * Add reply addresses (Cc).
+	 *
+	 * @param array $addresses [ [name,email] ] or [ [email] ]
+	 * @return $this
+	 * @throws Exception
+	 */
+	public function addReplies(array $addresses): Mailer
+	{
+		foreach ($addresses as $address) {
+			if(is_string($address)) {
+				$this->addReply($address);
+			}
+			elseif(is_array($address)) {
+				$email = strval($address['email'] ?? '');
+				$name = strval($address['name'] ?? '');
+				if(!$email) {
+					throw new Exception('Email key not found in array.');
+				}
+				$this->addReply($email, $name);
+			}
+			else {
+				throw new Exception('The address type is not supported.');
+			}
+		}
 		return $this;
 	}
 
