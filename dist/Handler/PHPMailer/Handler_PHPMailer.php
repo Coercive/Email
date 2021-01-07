@@ -48,6 +48,9 @@ class Handler_PHPMailer implements InterfaceHandler
 		$this->param = $param;
 		try {
 			$this->PHPMailer = new PHPMailer;
+			if($priority = $config->getPriority()) {
+				$this->PHPMailer->Priority = $priority;
+			}
 			$this->PHPMailer->CharSet = $param->getCharset();
 			$this->PHPMailer->isSMTP();
 			if($lang = $param->getLang()) {
@@ -65,6 +68,8 @@ class Handler_PHPMailer implements InterfaceHandler
 					$this->status->addDebug($str);
 				};
 			}
+
+			# Remote SMTP Config
 			if($port = $config->getPort()) {
 				$this->PHPMailer->Port = $port;
 			}
@@ -84,6 +89,7 @@ class Handler_PHPMailer implements InterfaceHandler
 			}
 			$param->setVia($param->getVia() . ' - ' . $via);
 
+			# SSL Config
 			$this->PHPMailer->smtpConnect([
 				'ssl' => [
 					'verify_peer' => false,
@@ -91,6 +97,38 @@ class Handler_PHPMailer implements InterfaceHandler
 					'allow_self_signed' => true
 				]
 			]);
+
+			# DKIM Config
+			$dkim = false;
+			if($dkim_domain = $config->getDkimDomain()) {
+				$this->PHPMailer->DKIM_domain = $dkim_domain;
+				$dkim = true;
+			}
+			if($dkim_private = $config->getDkimPrivate()) {
+				$this->PHPMailer->DKIM_private = $dkim_private;
+				$dkim = true;
+			}
+			if($dkim_private_string = $config->getDkimPrivateString()) {
+				$this->PHPMailer->DKIM_private_string = $dkim_private_string;
+				$dkim = true;
+			}
+			if($dkim && $dkim_selector = $config->getDkimSelector()) {
+				$this->PHPMailer->DKIM_selector = $dkim_selector;
+			}
+			if($dkim && $dkim_passphrase = $config->getDkimPassphrase()) {
+				$this->PHPMailer->DKIM_passphrase = $dkim_passphrase;
+			}
+			if($dkim) {
+				if($dkim_identity = $config->getDkimIdentity()) {
+					$this->PHPMailer->DKIM_identity = $dkim_identity;
+				}
+				elseif($from = $this->param->getFrom()) {
+					$this->PHPMailer->DKIM_identity = $from->getEmail();
+				}
+			}
+			if($dkim && $encoding = $config->getEncoding()) {
+				$this->PHPMailer->Encoding = $encoding;
+			}
 
 		}
 		catch (Exception $e) {

@@ -29,6 +29,30 @@ class PHPMailerConfig
 	/** @var string */
 	private $password = '';
 
+	/** @var string */
+	private $dkim_domain = '';
+
+	/** @var string */
+	private $dkim_private = '';
+
+	/** @var string */
+	private $dkim_private_string = '';
+
+	/** @var string */
+	private $dkim_selector = 'mail';
+
+	/** @var string */
+	private $dkim_passphrase = '';
+
+	/** @var string */
+	private $dkim_identity = '';
+
+	/** @var string */
+	private $encoding = '';
+
+	/** @var string */
+	private $priority = 3;
+
 	/**
 	 * PHPMailerConfig constructor.
 	 *
@@ -136,5 +160,149 @@ class PHPMailerConfig
 	public function getPassword(): string
 	{
 		return $this->password;
+	}
+
+	/**
+	 * @param string $domain
+	 * @return $this
+	 */
+	public function setDkimDomain(string $domain): PHPMailerConfig
+	{
+		$this->dkim_domain = $domain;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDkimDomain(): string
+	{
+		return $this->dkim_domain;
+	}
+
+	/**
+	 * @param string $path
+	 * @return $this
+	 */
+	public function setDkimPrivate(string $path): PHPMailerConfig
+	{
+		$this->dkim_private = $path;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDkimPrivate(): string
+	{
+		return $this->dkim_private;
+	}
+
+	/**
+	 * @param string $key
+	 * @return $this
+	 */
+	public function setDkimPrivateString(string $key): PHPMailerConfig
+	{
+		$this->dkim_private_string = $key;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDkimPrivateString(): string
+	{
+		return $this->dkim_private_string;
+	}
+
+	/**
+	 * @param string $selector
+	 * @return $this
+	 */
+	public function setDkimSelector(string $selector): PHPMailerConfig
+	{
+		$this->dkim_selector = $selector;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDkimSelector(): string
+	{
+		return $this->dkim_selector;
+	}
+
+	/**
+	 * @param string $pw
+	 * @return $this
+	 */
+	public function setDkimPassphrase(string $pw): PHPMailerConfig
+	{
+		$this->dkim_passphrase = $pw;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDkimPassphrase(): string
+	{
+		return $this->dkim_passphrase;
+	}
+
+	/**
+	 * @param string $from
+	 * @return $this
+	 */
+	public function setDkimIdentity(string $from): PHPMailerConfig
+	{
+		$this->dkim_identity = $from;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDkimIdentity(): string
+	{
+		return $this->dkim_identity;
+	}
+
+	/**
+	 * @param string $method
+	 * @return $this
+	 */
+	public function setEncoding(string $method): PHPMailerConfig
+	{
+		$this->encoding = $method;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getEncoding(): string
+	{
+		return $this->encoding;
+	}
+
+	/**
+	 * @param int $level
+	 * @return $this
+	 */
+	public function setPriority(int $level): PHPMailerConfig
+	{
+		$this->priority = $level;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPriority(): string
+	{
+		return $this->encoding;
 	}
 }

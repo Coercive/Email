@@ -131,6 +131,30 @@ class Config
 			if($x = $arr['password'] ?? '') {
 				$this->PHPMailerConfig()->setPassword($x);
 			}
+			if($x = $arr['DKIM_domain'] ?? '') {
+				$this->PHPMailerConfig()->setDkimDomain($x);
+			}
+			if($x = $arr['DKIM_private'] ?? '') {
+				$this->PHPMailerConfig()->setDkimPrivate($x);
+			}
+			if($x = $arr['DKIM_private_string'] ?? '') {
+				$this->PHPMailerConfig()->setDkimPrivateString($x);
+			}
+			if($x = $arr['DKIM_selector'] ?? '') {
+				$this->PHPMailerConfig()->setDkimSelector($x);
+			}
+			if($x = $arr['DKIM_passphrase'] ?? '') {
+				$this->PHPMailerConfig()->setDkimPassphrase($x);
+			}
+			if($x = $arr['DKIM_identity'] ?? '') {
+				$this->PHPMailerConfig()->setDkimIdentity($x);
+			}
+			if($x = $arr['encoding'] ?? '') {
+				$this->PHPMailerConfig()->setEncoding($x);
+			}
+			if($x = intval($arr['priority'] ?? 0)) {
+				$this->PHPMailerConfig()->setPriority($x);
+			}
 		}
 
 		if($arr = $yaml['swiftmailer'] ?? []) {
