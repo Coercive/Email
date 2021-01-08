@@ -24,6 +24,14 @@ phpmailer:
     host: your-smtp.example.com
     username: your-user-name-here
     password: your-password-here
+    DKIM_domain: your.domain
+    DKIM_private: /path/to/key
+    DKIM_private_string: your_key_1234567890
+    DKIM_selector: mail
+    DKIM_passphrase: your-passphrase
+    DKIM_identity: from-email@
+    encoding: base64
+    priority: 3
 
 swiftmailer:
     port: 587
